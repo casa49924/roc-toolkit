@@ -14,6 +14,7 @@
 
 #include "roc_core/slice.h"
 #include "roc_packet/packet.h"
+#include "roc_status/status_code.h"
 
 namespace roc {
 namespace packet {
@@ -31,7 +32,7 @@ public:
     //! @returns
     //!  true if the buffer was successfully adjusted or false if the @p buffer
     //!  capacity is not enough.
-    virtual bool
+    virtual status::StatusCode
     align(core::Slice<uint8_t>& buffer, size_t header_size, size_t payload_alignment) = 0;
 
     //! Prepare buffer for composing a packet.
@@ -44,7 +45,7 @@ public:
     //! @returns
     //!  true if the packet was successfully prepared or false if the @p buffer
     //!  capacity is not enough.
-    virtual bool
+    virtual status::StatusCode
     prepare(Packet& packet, core::Slice<uint8_t>& buffer, size_t payload_size) = 0;
 
     //! Pad packet.
@@ -55,7 +56,7 @@ public:
     //! @returns
     //!  true if the packet was successfully padded or false if parameters
     //!  are invalid or padding is not supported.
-    virtual bool pad(Packet& packet, size_t padding_size) = 0;
+    virtual status::StatusCode pad(Packet& packet, size_t padding_size) = 0;
 
     //! Compose packet to buffer.
     //! @remarks
@@ -63,7 +64,7 @@ public:
     //!  a previous prepare() call.
     //! @returns
     //!  true if the packet was successfully composed or false if an error occurred.
-    virtual bool compose(Packet& packet) = 0;
+    virtual status::StatusCode compose(Packet& packet) = 0;
 };
 
 } // namespace packet

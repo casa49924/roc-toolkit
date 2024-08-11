@@ -27,18 +27,18 @@ public:
     Composer(packet::IComposer* inner_composer);
 
     //! Adjust buffer to align payload.
-    virtual bool
+    virtual status::StatusCode
     align(core::Slice<uint8_t>& buffer, size_t header_size, size_t payload_alignment);
 
     //! Prepare buffer for composing a packet.
-    virtual bool
+    virtual status::StatusCode
     prepare(packet::Packet& packet, core::Slice<uint8_t>& buffer, size_t payload_size);
 
     //! Pad packet.
-    virtual bool pad(packet::Packet& packet, size_t padding_size);
+    virtual status::StatusCode pad(packet::Packet& packet, size_t padding_size);
 
     //! Compose packet to buffer.
-    virtual bool compose(packet::Packet& packet);
+    virtual status::StatusCode compose(packet::Packet& packet);
 
 private:
     packet::IComposer* inner_composer_;
